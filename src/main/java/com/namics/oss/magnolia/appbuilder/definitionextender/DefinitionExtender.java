@@ -22,7 +22,7 @@ import static com.namics.oss.magnolia.appbuilder.definitionextender.DefinitionEx
 /**
  * Standalone helper to generate classes which extend from
  * existing definition-classes and add builder methods.
- * <p>>
+ * <p>
  * This should run once to generate all the builder classes,
  * the generated builder classes should be checked in.
  * If the generated class are not modified, class can be run

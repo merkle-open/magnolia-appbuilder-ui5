@@ -15,7 +15,7 @@ package com.namics.oss.magnolia.appbuilder;
  * Replace with: public static final String \U$2\E = "$1";
  * <p>
  * Second run (with 'Match Case'):
- * Search for: (?<![a-z])-(?![a-z])
+ * Search for: (?&lt;![a-z])-(?![a-z])
  * Replace with: _
  */
 public final class MgnlIcon {
