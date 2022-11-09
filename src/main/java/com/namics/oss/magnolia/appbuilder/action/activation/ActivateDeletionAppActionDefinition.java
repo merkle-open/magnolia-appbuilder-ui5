@@ -18,6 +18,8 @@ public class ActivateDeletionAppActionDefinition implements AppActionDefinition 
 				.label("actions.activateDeleted")
 				.icon(MgnlIcon.PUBLISH)
 				.command("activate")
+				.successMessage("appbuilder.actions.activateDeletion.success")
+				.errorMessage("appbuilder.actions.activateDeletion.failure")
 				.availability(new AvailabilityBuilder()
 						.access(new AccessBuilder().roles("editor", "publisher"))
 						.writePermissionRequired(true)

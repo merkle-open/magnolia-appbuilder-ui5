@@ -19,6 +19,8 @@ public class DeactivateAppActionDefinition implements AppActionDefinition {
 				.label("actions.deactivate")
 				.icon(MgnlIcon.UNPUBLISH)
 				.command("deactivate")
+				.successMessage("appbuilder.actions.deactivate.success")
+				.errorMessage("appbuilder.actions.deactivate.failure")
 				.availability(new AvailabilityBuilder()
 						.access(new AccessBuilder().roles("editor", "publisher"))
 						.writePermissionRequired(true)

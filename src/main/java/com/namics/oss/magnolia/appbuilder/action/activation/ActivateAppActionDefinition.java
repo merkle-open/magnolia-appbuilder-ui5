@@ -19,6 +19,8 @@ public class ActivateAppActionDefinition implements AppActionDefinition {
 				.label("actions.activate")
 				.icon(MgnlIcon.PUBLISH)
 				.command("activate")
+				.successMessage("appbuilder.actions.activate.success")
+				.errorMessage("appbuilder.actions.activate.failure")
 				.availability(new AvailabilityBuilder()
 						.access(new AccessBuilder().roles("editor", "publisher"))
 						.writePermissionRequired(true)

@@ -21,6 +21,8 @@ public class ActivateRecursiveAppActionDefinition implements AppActionDefinition
 				.command("activate")
 				.recursive(true)
 				.asynchronous(true)
+				.successMessage("appbuilder.actions.activateRecursive.success")
+				.errorMessage("appbuilder.actions.activateRecursive.failure")
 				.availability(new AvailabilityBuilder()
 						.access(new AccessBuilder().roles("editor", "publisher"))
 						.writePermissionRequired(true)
