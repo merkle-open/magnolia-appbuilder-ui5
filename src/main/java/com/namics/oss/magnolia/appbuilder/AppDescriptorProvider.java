@@ -11,9 +11,8 @@ import info.magnolia.config.registry.Registry;
 import info.magnolia.config.registry.decoration.DefinitionDecorator;
 import info.magnolia.ui.api.app.AppDescriptor;
 import info.magnolia.ui.api.app.SubAppDescriptor;
+import info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor;
 import info.magnolia.ui.contentapp.ContentApp;
-import info.magnolia.ui.contentapp.configuration.ContentAppDescriptor;
-import info.magnolia.ui.datasource.DatasourceDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
@@ -28,7 +27,7 @@ import java.util.stream.Stream;
 
 public class AppDescriptorProvider implements DefinitionProvider<AppDescriptor> {
 	private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-	private final ContentAppDescriptor<DatasourceDefinition> appDescriptor;
+	private final ConfiguredContentAppDescriptor appDescriptor;
 	private final DefinitionMetadata metadata;
 
 	public AppDescriptorProvider(final Object appFactory) {
@@ -38,7 +37,7 @@ public class AppDescriptorProvider implements DefinitionProvider<AppDescriptor> 
 				.getTargetClass(appFactory)
 				.getAnnotation(AppFactory.class);
 
-		appDescriptor = new ContentAppDescriptor<>();
+		appDescriptor = new ConfiguredContentAppDescriptor();
 		appDescriptor.setAppClass(ContentApp.class);
 		appDescriptor.setName(appFactoryAnnotation.name());
 		appDescriptor.setEnabled(appFactoryAnnotation.isEnabled());
