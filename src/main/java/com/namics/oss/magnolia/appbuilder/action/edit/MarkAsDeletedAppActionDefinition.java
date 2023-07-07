@@ -1,9 +1,11 @@
 package com.namics.oss.magnolia.appbuilder.action.edit;
 
 import com.namics.oss.magnolia.appbuilder.action.AppActionDefinition;
+import com.namics.oss.magnolia.appbuilder.action.rule.PermissionRequiredRuleDefinition;
 import com.namics.oss.magnolia.appbuilder.builder.generated.action.MarkNodeAsDeletedActionBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityRuleBuilder;
+import info.magnolia.cms.security.Permission;
 import info.magnolia.ui.api.action.ConfiguredActionDefinition;
 import info.magnolia.ui.framework.availability.IsNotDeletedRule;
 
@@ -17,7 +19,10 @@ public class MarkAsDeletedAppActionDefinition implements AppActionDefinition {
 				.command("markAsDeleted")
 				.asynchronous(true)
 				.availability(new AvailabilityBuilder()
-						.rules(new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class))
+						.rules(
+								new PermissionRequiredRuleDefinition(Permission.REMOVE),
+								new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class)
+						)
 				);
 	}
 

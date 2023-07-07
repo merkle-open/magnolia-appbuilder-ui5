@@ -2,9 +2,11 @@ package com.namics.oss.magnolia.appbuilder.action.edit;
 
 import com.namics.oss.magnolia.appbuilder.MgnlIcon;
 import com.namics.oss.magnolia.appbuilder.action.AppActionDefinition;
+import com.namics.oss.magnolia.appbuilder.action.rule.PermissionRequiredRuleDefinition;
 import com.namics.oss.magnolia.appbuilder.builder.generated.action.OpenMoveDialogActionBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityRuleBuilder;
+import info.magnolia.cms.security.Permission;
 import info.magnolia.ui.api.action.ConfiguredActionDefinition;
 import info.magnolia.ui.framework.availability.IsNotDeletedRule;
 
@@ -28,7 +30,10 @@ public class MoveAppActionDefinition implements AppActionDefinition {
 				.label(label)
 				.icon(icon)
 				.availability(new AvailabilityBuilder()
-						.rules(new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class))
+						.rules(
+								new PermissionRequiredRuleDefinition(Permission.ALL),
+								new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class)
+						)
 				);
 	}
 }

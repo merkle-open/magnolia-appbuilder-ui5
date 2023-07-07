@@ -2,9 +2,11 @@ package com.namics.oss.magnolia.appbuilder.action.importexport;
 
 import com.namics.oss.magnolia.appbuilder.MgnlIcon;
 import com.namics.oss.magnolia.appbuilder.action.AppActionDefinition;
+import com.namics.oss.magnolia.appbuilder.action.rule.PermissionRequiredRuleDefinition;
 import com.namics.oss.magnolia.appbuilder.builder.generated.action.OpenCreateDialogActionBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityBuilder;
 import com.namics.oss.magnolia.appbuilder.builder.generated.availability.AvailabilityRuleBuilder;
+import info.magnolia.cms.security.Permission;
 import info.magnolia.ui.api.action.ConfiguredActionDefinition;
 import info.magnolia.ui.framework.availability.IsNotDeletedRule;
 
@@ -18,7 +20,10 @@ public class ImportAppActionDefinition implements AppActionDefinition {
 				.icon(MgnlIcon.IMPORT)
 				.dialogName("ui-admincentral:import")
 				.availability(new AvailabilityBuilder()
-						.rules(new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class))
+						.rules(
+								new PermissionRequiredRuleDefinition(Permission.WRITE),
+								new AvailabilityRuleBuilder().implementationClass(IsNotDeletedRule.class)
+						)
 				);
 	}
 
