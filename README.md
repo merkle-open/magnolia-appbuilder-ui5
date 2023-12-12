@@ -100,22 +100,22 @@ provided by Magnolia.
 ## Examples
 The following class is a demo app, made with the AppBuilder:
 ```java
-import com.namics.oss.magnolia.appbuilder.MgnlIcon;
-import com.namics.oss.magnolia.appbuilder.action.AppActionDefinitions;
-import com.namics.oss.magnolia.appbuilder.action.AppActionGroupDefinition;
-import com.namics.oss.magnolia.appbuilder.action.add.AddAppActionDefinition;
-import com.namics.oss.magnolia.appbuilder.action.edit.EditAppActionDefinition;
-import com.namics.oss.magnolia.appbuilder.annotations.AppFactory;
-import com.namics.oss.magnolia.appbuilder.annotations.ChooseDialog;
-import com.namics.oss.magnolia.appbuilder.annotations.SubApp;
-import com.namics.oss.magnolia.appbuilder.builder.BrowserAppBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.choosedialog.ChooseDialogBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.column.MetaDataColumnBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.column.PropertyColumnBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.column.StatusColumnBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.contentconnector.JcrContentConnectorBuilder;
-import com.namics.oss.magnolia.appbuilder.builder.generated.contentconnector.NodeTypeBuilder;
-import com.namics.oss.magnolia.appbuilder.launcher.group.LauncherGroup;
+import com.namics.oss.magnolia.appbuilder.ui5.MgnlIcon;
+import com.namics.oss.magnolia.appbuilder.ui5.action.AppActionDefinitions;
+import com.namics.oss.magnolia.appbuilder.ui5.action.AppActionGroupDefinition;
+import com.namics.oss.magnolia.appbuilder.ui5.action.add.AddAppActionDefinition;
+import com.namics.oss.magnolia.appbuilder.ui5.action.edit.EditAppActionDefinition;
+import com.namics.oss.magnolia.appbuilder.ui5.annotations.AppFactory;
+import com.namics.oss.magnolia.appbuilder.ui5.annotations.ChooseDialog;
+import com.namics.oss.magnolia.appbuilder.ui5.annotations.SubApp;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.BrowserAppBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.choosedialog.ChooseDialogBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.column.MetaDataColumnBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.column.PropertyColumnBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.column.StatusColumnBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.contentconnector.JcrContentConnectorBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.contentconnector.NodeTypeBuilder;
+import com.namics.oss.magnolia.appbuilder.ui5.launcher.group.LauncherGroup;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.ui.api.app.SubAppDescriptor;
 import info.magnolia.ui.dialog.definition.ChooseDialogDefinition;
@@ -200,7 +200,7 @@ public class SampleApp {
 DropConstraint sample:
 ```java
 import com.namics.engagement.web.core.EngagementCoreTemplatingConstants;
-import com.namics.oss.magnolia.appbuilder.dropconstraint.AbstractNodeDropConstraint;
+import com.namics.oss.magnolia.appbuilder.ui5.dropconstraint.AbstractNodeDropConstraint;
 import com.namics.oss.magnolia.powernode.PowerNodeService;
 import info.magnolia.jcr.util.NodeTypes;
 
@@ -221,7 +221,7 @@ public class SampleNodeDropConstraint extends AbstractNodeDropConstraint {
 ```
 ColumnFormatter sample:
 ```java
-import com.namics.oss.magnolia.appbuilder.formatter.AbstractColumnFormatter;
+import com.namics.oss.magnolia.appbuilder.ui5.formatter.AbstractColumnFormatter;
 import com.namics.oss.magnolia.powernode.PowerNode;
 import com.namics.oss.magnolia.powernode.PowerNodeService;
 import info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition;
@@ -248,10 +248,11 @@ public class SampleColumnFormatter extends AbstractColumnFormatter {
 }
 ```
 The following class creates an 'App Launcher Group':
+
 ```java
-import com.namics.oss.magnolia.appbuilder.annotations.AppLauncherGroup;
-import com.namics.oss.magnolia.appbuilder.annotations.GroupDefinition;
-import com.namics.oss.magnolia.appbuilder.launcher.group.SimpleGroupDefinition;
+import com.namics.oss.magnolia.appbuilder.ui5.annotations.AppLauncherGroup;
+import com.namics.oss.magnolia.appbuilder.ui5.annotations.GroupDefinition;
+import com.namics.oss.magnolia.appbuilder.ui5.launcher.group.SimpleGroupDefinition;
 
 
 @AppLauncherGroup(
