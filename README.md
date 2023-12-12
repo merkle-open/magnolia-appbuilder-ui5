@@ -191,7 +191,6 @@ DropConstraint sample:
 ```java
 import com.namics.engagement.web.core.EngagementCoreTemplatingConstants;
 import com.namics.oss.magnolia.appbuilder.ui5.dropconstraint.AbstractNodeDropConstraint;
-import com.namics.oss.magnolia.powernode.PowerNodeService;
 import info.magnolia.jcr.util.NodeTypes;
 
 import javax.inject.Inject;
@@ -200,9 +199,8 @@ import java.util.Set;
 public class SampleNodeDropConstraint extends AbstractNodeDropConstraint {
 
 	@Inject
-	public SampleNodeDropConstraint(final PowerNodeService powerNodeService) {
+	public SampleNodeDropConstraint() {
 		super(
-				powerNodeService,
 				"<FOLDER_NODE_TYPE>",
 				Set.of("<FILE_NODE_TYPE>")
 		);
@@ -210,28 +208,28 @@ public class SampleNodeDropConstraint extends AbstractNodeDropConstraint {
 }
 ```
 ColumnFormatter sample:
+
 ```java
+import com.machinezoo.noexception.Exceptions;
 import com.namics.oss.magnolia.appbuilder.ui5.formatter.AbstractColumnFormatter;
-import com.namics.oss.magnolia.powernode.PowerNode;
-import com.namics.oss.magnolia.powernode.PowerNodeService;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition;
 
+import javax.jcr.Node;
 import javax.inject.Inject;
 import java.util.Optional;
 
 public class SampleColumnFormatter extends AbstractColumnFormatter {
 
 	@Inject
-	public SampleColumnFormatter(
-			final PowerNodeService powerNodeService,
-			final PropertyColumnDefinition definition) {
-		super(powerNodeService, definition);
+	public SampleColumnFormatter(final PropertyColumnDefinition definition) {
+		super(definition);
 	}
 
 	@Override
-	protected Optional<String> format(final PowerNode item, final String columnId) {
-		if (item.isNodeType("<SOME_NODE_TYPE>")) {
-			return item.getPropertyValue("<SOME_FIELD>", String.class);
+	protected Optional<String> format(final Node item, final String columnId) {
+		if (Exceptions.wrap().get(() -> item.isNodeType("<SOME_NODE_TYPE>"))) {
+			return Optional.ofNullable(PropertyUtil.getString(item, "<SOME_FIELD>"));
 		}
 		return Optional.empty();
 	}

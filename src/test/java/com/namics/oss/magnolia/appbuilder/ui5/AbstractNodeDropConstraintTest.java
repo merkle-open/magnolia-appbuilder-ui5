@@ -1,7 +1,6 @@
 package com.namics.oss.magnolia.appbuilder.ui5;
 
 import com.namics.oss.magnolia.appbuilder.ui5.dropconstraint.AbstractNodeDropConstraint;
-import com.namics.oss.magnolia.powernode.PowerNodeService;
 import info.magnolia.test.RepositoryTestCase;
 import info.magnolia.test.mock.jcr.MockNode;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
@@ -215,7 +214,6 @@ class AbstractNodeDropConstraintTest extends RepositoryTestCase {
 
 	private DropConstraint constraint(final boolean nestingAllowed, final boolean fileNodesAllowedInRoot) {
 		return spy(new AbstractNodeDropConstraint(
-				new PowerNodeService(),
 				FOLDER_NODE_TYPE,
 				Set.of(FILE_NODE_TYPE),
 				nestingAllowed,

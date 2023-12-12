@@ -30,10 +30,12 @@
 
 	<properties>
 		<magnolia.version>6.2.40</magnolia.version>
+		<springVersion>5.3.27</springVersion>
 		<magnolia.blossom.version>3.6.3</magnolia.blossom.version>
 		<magnolia.workflow.version>6.0.11</magnolia.workflow.version>
-		<namics.powernode.version>1.0.1</namics.powernode.version>
 		<java.poet.version>1.13.0</java.poet.version>
+
+
 		<!--Test dependency versions-->
 		<junit.version>5.10.1</junit.version>
 		<mockito.version>5.8.0</mockito.version>
@@ -54,6 +56,14 @@
 				<groupId>info.magnolia.bundle</groupId>
 				<artifactId>magnolia-bundle-parent</artifactId>
 				<version>${magnolia.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>info.magnolia.blossom</groupId>
+				<artifactId>magnolia-module-blossom</artifactId>
+				<version>${magnolia.blossom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -96,8 +106,12 @@
 		<dependency>
 			<groupId>info.magnolia.blossom</groupId>
 			<artifactId>magnolia-module-blossom</artifactId>
-			<version>${magnolia.blossom.version}</version>
-			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Vaadin Compatibility -->
@@ -105,13 +119,6 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-compatibility-server</artifactId>
 			<scope>compile</scope>
-		</dependency>
-
-		<!-- Namics -->
-		<dependency>
-			<groupId>com.namics.oss.magnolia</groupId>
-			<artifactId>magnolia-powernode</artifactId>
-			<version>${namics.powernode.version}</version>
 		</dependency>
 
 		<!-- Java Poet used to generate extended definitions for the app builder -->

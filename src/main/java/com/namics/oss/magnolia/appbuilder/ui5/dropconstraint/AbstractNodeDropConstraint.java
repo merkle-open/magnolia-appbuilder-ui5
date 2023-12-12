@@ -1,8 +1,8 @@
 package com.namics.oss.magnolia.appbuilder.ui5.dropconstraint;
 
 
-import com.namics.oss.magnolia.powernode.PowerNode;
-import com.namics.oss.magnolia.powernode.PowerNodeService;
+import com.machinezoo.noexception.Exceptions;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 import info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint;
 import info.magnolia.ui.workbench.tree.drop.DropConstraint;
@@ -16,18 +16,15 @@ import java.util.Set;
 public abstract class AbstractNodeDropConstraint extends AlwaysTrueDropConstraint implements DropConstraint {
 	private static final String ROOT_NODE_TYPE = "rep:root";
 
-	private final PowerNodeService powerNodeService;
 	private final String folderNodeType;
 	private final Set<String> fileNodeTypes;
 	private final boolean nestingAllowed;
 	private final boolean fileNodesAllowedInRoot;
 
 	protected AbstractNodeDropConstraint(
-			final PowerNodeService powerNodeService,
 			final String folderNodeType,
 			final Set<String> fileNodeTypes) {
 		this(
-				powerNodeService,
 				folderNodeType,
 				fileNodeTypes,
 				false,
@@ -36,7 +33,6 @@ public abstract class AbstractNodeDropConstraint extends AlwaysTrueDropConstrain
 	}
 
 	protected AbstractNodeDropConstraint(
-			final PowerNodeService powerNodeService,
 			final String folderNodeType,
 			final Set<String> fileNodeTypes,
 			final boolean nestingAllowed,
@@ -44,7 +40,6 @@ public abstract class AbstractNodeDropConstraint extends AlwaysTrueDropConstrain
 		this.folderNodeType = folderNodeType;
 		this.fileNodeTypes = fileNodeTypes;
 		this.nestingAllowed = nestingAllowed;
-		this.powerNodeService = powerNodeService;
 		this.fileNodesAllowedInRoot = fileNodesAllowedInRoot;
 	}
 
@@ -92,33 +87,35 @@ public abstract class AbstractNodeDropConstraint extends AlwaysTrueDropConstrain
 
 	private boolean isDirectChild(final com.vaadin.v7.data.Item childItem, final com.vaadin.v7.data.Item parentItem) {
 		return convert(childItem)
-				.map(PowerNode::getParent)
+				.map(node -> Exceptions.wrap().get(node::getParent))
 				.flatMap(childsParentNode ->
 						convert(parentItem).map(parentNode -> equals(childsParentNode, parentNode))
 				)
 				.orElse(false);
 	}
 
-	private boolean equals(final PowerNode node, final PowerNode other) {
-		return Objects.equals(node.getIdentifier(), other.getIdentifier());
+	private boolean equals(final Node node, final Node other) {
+		return Objects.equals(Exceptions.wrap().get(node::getIdentifier), Exceptions.wrap().get(other::getIdentifier));
 	}
 
 	private boolean isParentNodeType(final com.vaadin.v7.data.Item item, final String nodeType) {
 		return convert(item)
-				.map(PowerNode::getParent)
-				.map(node -> node.isNodeType(nodeType))
+				.map(node -> Exceptions.wrap().get(node::getParent))
+				.map(node -> Exceptions.wrap().get(() -> NodeUtil.isNodeType(node, nodeType)))
 				.orElse(false);
 	}
 
 	private boolean isNodeType(final com.vaadin.v7.data.Item item, final String... nodeTypes) {
 		return convert(item)
-				.map(node -> Arrays.stream(nodeTypes).anyMatch(node::isNodeType))
+				.map(node -> Arrays.stream(nodeTypes).anyMatch(nodeType ->
+						Exceptions.wrap().get(() -> NodeUtil.isNodeType(node, nodeType))
+				))
 				.orElse(false);
 	}
 
-	private Optional<PowerNode> convert(com.vaadin.v7.data.Item item) {
+	private Optional<Node> convert(com.vaadin.v7.data.Item item) {
 		if (item instanceof JcrItemAdapter && ((JcrItemAdapter) item).isNode()) {
-			return Optional.of(powerNodeService.convertToPowerNode((Node) ((JcrItemAdapter) item).getJcrItem()));
+			return Optional.of((Node) ((JcrItemAdapter) item).getJcrItem());
 		}
 		return Optional.empty();
 	}

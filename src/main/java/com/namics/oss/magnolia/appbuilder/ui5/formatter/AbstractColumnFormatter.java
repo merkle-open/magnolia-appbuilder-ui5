@@ -1,8 +1,7 @@
 package com.namics.oss.magnolia.appbuilder.ui5.formatter;
 
-import com.namics.oss.magnolia.powernode.PowerNode;
-import com.namics.oss.magnolia.powernode.PowerNodeService;
 import com.vaadin.v7.ui.Table;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,13 +10,9 @@ import javax.jcr.Node;
 import java.util.Optional;
 
 public abstract class AbstractColumnFormatter extends info.magnolia.ui.workbench.column.AbstractColumnFormatter<PropertyColumnDefinition> {
-	private final PowerNodeService powerNodeService;
 
-	protected AbstractColumnFormatter(
-			final PowerNodeService powerNodeService,
-			final PropertyColumnDefinition definition) {
+	protected AbstractColumnFormatter(final PropertyColumnDefinition definition) {
 		super(definition);
-		this.powerNodeService = powerNodeService;
 	}
 
 	@Override
@@ -26,9 +21,8 @@ public abstract class AbstractColumnFormatter extends info.magnolia.ui.workbench
 				.ofNullable(getJcrItem(table, itemParam))
 				.filter(Item::isNode)
 				.map(item -> (Node) item)
-				.map(powerNodeService::convertToPowerNode)
 				.map(item ->
-						format(item, (String) columnId).orElseGet(item::getName)
+						format(item, (String) columnId).orElseGet(() -> NodeUtil.getName(item))
 				)
 				.orElse(StringUtils.EMPTY);
 	}
@@ -38,5 +32,5 @@ public abstract class AbstractColumnFormatter extends info.magnolia.ui.workbench
 	 *
 	 * @return formatted item. If empty optional is returned, the node name is used.
 	 */
-	protected abstract Optional<String> format(PowerNode item, String columnId);
+	protected abstract Optional<String> format(Node item, String columnId);
 }
