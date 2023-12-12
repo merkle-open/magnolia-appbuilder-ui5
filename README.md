@@ -35,8 +35,7 @@ public class BlossomServletConfiguration {
 
 * Extend the component scan of the Spring configuration:
 ```java
-@ComponentScan.Filter(AppFactory.class),
-@ComponentScan.Filter(AppLauncherGroup.class)
+@ComponentScan.Filter(AppFactory.class)
 ```
 
 ## How to use
@@ -53,11 +52,6 @@ For a quick overview check the [examples](#examples) bellow.
 Marks a class as AppFactory. The annotation properties define the basic app properties
 like 'name', 'label' and 'icon'.
 
-This annotation also allows to place the app in a Launcher Group. It is possible
-to create a new group, see ['Creating an App Launcher Group'](#creating-an-app-launcher-group),
-and add the app to the newly created group, or to use an existing Launcher Group. 
-The position of the app in the group can be configured with the 'order' annotation property.
-
 #### SubApp (Target: Method)
 The AppFactory requires at least one method marked with the `@SubApp` annotation
 this method must return a `info.magnolia.ui.api.app.SubAppDescriptor`.
@@ -68,10 +62,8 @@ A method marked with `@ChooseDialog` must return a `info.magnolia.ui.dialog.defi
 #### AppPermissions, optional (Target: Method)
 A method marked with `@AppPermissions` must return a `info.magnolia.cms.security.operations.AccessDefinition`.
 
-### Creating an App Launcher Group
-Annotate a class with `@AppLauncherGroup`, and add the name as annotation property.
-Optionally the class can be added a method with a `@GroupDefinition` annotation,
-returning a `SimpleGroupDefinition`
+### Adding an App to the applauncher
+Configure `admincentral/config.yaml` (See [here](https://docs.magnolia-cms.com/product-docs/6.2/Administration/App-Launcher/App-launcher-layout.html#_example_definitions)) 
 
 ### Multiple 'defaultActions' (double click actions)
 The `NodeTypeToActionDelegatingAction` action wrapper allows to define 
@@ -115,7 +107,6 @@ import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.column.PropertyC
 import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.column.StatusColumnBuilder;
 import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.contentconnector.JcrContentConnectorBuilder;
 import com.namics.oss.magnolia.appbuilder.ui5.builder.generated.contentconnector.NodeTypeBuilder;
-import com.namics.oss.magnolia.appbuilder.ui5.launcher.group.LauncherGroup;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.ui.api.app.SubAppDescriptor;
 import info.magnolia.ui.dialog.definition.ChooseDialogDefinition;
@@ -128,8 +119,7 @@ import info.magnolia.ui.workbench.column.definition.ColumnDefinition;
 		id = SampleApp.ID,
 		name = SampleApp.NAME,
 		label = SampleApp.NAME,
-		icon = MgnlIcon.TAG_2_APP,
-		launcherGroup = LauncherGroup.EDIT
+		icon = MgnlIcon.TAG_2_APP
 )
 public class SampleApp {
 	public static final String NAME = "SampleApp";
@@ -245,28 +235,5 @@ public class SampleColumnFormatter extends AbstractColumnFormatter {
 		}
 		return Optional.empty();
 	}
-}
-```
-The following class creates an 'App Launcher Group':
-
-```java
-import com.namics.oss.magnolia.appbuilder.ui5.annotations.AppLauncherGroup;
-import com.namics.oss.magnolia.appbuilder.ui5.annotations.GroupDefinition;
-import com.namics.oss.magnolia.appbuilder.ui5.launcher.group.SimpleGroupDefinition;
-
-
-@AppLauncherGroup(
-		name = SampleGroup.NAME
-)
-public class SampleGroup {
-
-	public static final String NAME = "sample";
-
-	@GroupDefinition
-	public SimpleGroupDefinition getDefinition() {
-		return new SimpleGroupDefinition(NAME)
-				.color("#e05343");
-	}
-
 }
 ```
