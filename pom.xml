@@ -29,21 +29,21 @@
 	</developers>
 
 	<properties>
-		<magnolia.version>6.2.40</magnolia.version>
-		<springVersion>5.3.27</springVersion>
-		<magnolia.blossom.version>3.6.3</magnolia.blossom.version>
-		<magnolia.workflow.version>6.0.11</magnolia.workflow.version>
+		<magnolia.version>6.2.44</magnolia.version>
+		<springVersion>5.3.31</springVersion>
+		<magnolia.blossom.version>3.7.0</magnolia.blossom.version>
+		<magnolia.workflow.version>6.0.13</magnolia.workflow.version>
 		<java.poet.version>1.13.0</java.poet.version>
 
 
 		<!--Test dependency versions-->
-		<junit.version>5.10.1</junit.version>
-		<mockito.version>5.8.0</mockito.version>
+		<junit.version>5.10.2</junit.version>
+		<mockito.version>5.11.0</mockito.version>
 
 		<!-- Maven Plugins -->
-		<mvn.compiler.plugin.version>3.11.0</mvn.compiler.plugin.version>
+		<mvn.compiler.plugin.version>3.13.0</mvn.compiler.plugin.version>
 		<mvn.source.plugin.version>3.3.0</mvn.source.plugin.version>
-		<mvn.surefire.plugin.version>3.2.2</mvn.surefire.plugin.version>
+		<mvn.surefire.plugin.version>3.2.5</mvn.surefire.plugin.version>
 
 		<javaVersion>11</javaVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
