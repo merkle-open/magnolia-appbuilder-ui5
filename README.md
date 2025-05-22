@@ -17,7 +17,7 @@ error prone than using YAML, especially for big apps.
 * Add Maven dependency:
 ```xml
 <dependency>
-    <groupId>com.namics.oss.magnolia</groupId>
+    <groupId>com.merkle.oss.magnolia</groupId>
     <artifactId>magnolia-appbuilder</artifactId>
     <version>1.0.8</version>
 </dependency>
